@@ -90,10 +90,11 @@ namespace ChivalryEngineCore
         {
             return obj is Vector2 vector && this == vector;
         }
-        public bool Equals(Vector2 other)
+        public bool Equals(Vector2? other)
         {
-            return this == other;
+            return !ReferenceEquals(other, null) && this == other;
         }
+
         public override int GetHashCode()
         {
             return HashCode.Combine(X, Y);
