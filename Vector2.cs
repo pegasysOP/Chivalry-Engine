@@ -86,6 +86,13 @@ namespace ChivalryEngineCore
             return X * other.Y - Y * other.X;
         }
 
+        public float Distance(Vector2 other)
+        {
+            float xDistance = X - other.X;
+            float yDistance = Y - other.Y;
+            return (float)Math.Sqrt(xDistance * xDistance + yDistance * yDistance);
+        }
+
         public override bool Equals(object? obj)
         {
             return obj is Vector2 vector && this == vector;
