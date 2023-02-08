@@ -32,6 +32,9 @@ namespace ChivalryEngineCore
         public string Tag { get { EnsureAlive(); return _tag; } set { EnsureAlive(); _tag = value; } }
         private string _tag;
 
+        public Collider? Collider { get{ EnsureAlive(); return _collider; } set { EnsureAlive(); _collider = value; } }
+        private Collider? _collider;
+
         public GameObject(Vector2 position, float rotationInDegrees, Vector2 scale)
         {
             _id = Interlocked.Increment(ref nextID);
@@ -40,6 +43,7 @@ namespace ChivalryEngineCore
             _rotation = rotationInDegrees;
             _scale = scale;
             _tag = "";
+            _collider = null;
 
             // Keep trying to add the instance until it is successful
             while (!gameObjects.TryAdd(_id, this)) { }
@@ -58,10 +62,14 @@ namespace ChivalryEngineCore
                 while (!gameObjects.TryRemove(ID, out _)) { }
 
                 _isAlive = false;
+
                 _position = new Vector2();
                 _scale = new Vector2();
                 _rotation = 0f;
+
                 _tag = "";
+
+                _collider = null;
             }
         }
 
