@@ -44,11 +44,19 @@ namespace ChivalryEngineCore
             }
         }
 
+        public float SquaredMagnitude
+        {
+            get
+            {
+                return X * X + Y * Y;
+            }
+        }
+
         public float Magnitude
         {
             get
             {
-                return (float)Math.Sqrt(X * X + Y * Y);
+                return (float)Math.Sqrt(SquaredMagnitude);
             }
         }
 
@@ -86,11 +94,16 @@ namespace ChivalryEngineCore
             return X * other.Y - Y * other.X;
         }
 
-        public float Distance(Vector2 other)
+        public float SquaredDistance(Vector2 other)
         {
             float xDistance = X - other.X;
             float yDistance = Y - other.Y;
-            return (float)Math.Sqrt(xDistance * xDistance + yDistance * yDistance);
+            return xDistance * xDistance + yDistance * yDistance;
+        }
+
+        public float Distance(Vector2 other)
+        {
+            return (float)Math.Sqrt(SquaredDistance(other));
         }
 
         public override bool Equals(object? obj)
