@@ -102,6 +102,37 @@ namespace ChivalryEngineCore
             }
         }
 
+        public List<Collider> GetIntersectingColliders()
+        {
+            if(Collider == null)
+            {
+                Log.Error($"You are trying to access the collider on GameObject with ID: {_id} when there is not one");
+                throw new NullReferenceException($"You are trying to access the collider on GameObject with ID: {_id} when there is not one");
+            }
+
+            List<Collider> intersectingColliders = new List<Collider>();
+
+            foreach (GameObject otherGameObject in gameObjects.Values)
+            {
+                if(otherGameObject == this || otherGameObject.Collider == null)
+                {
+                    continue;
+                }
+
+                if(otherGameObject.Collider.Layer != Collider.Layer)
+                {
+                    continue;
+                }
+
+                if (Collider.Intersects(otherGameObject.Collider))
+                {
+                    intersectingColliders.Add(otherGameObject.Collider);
+                }
+            }
+
+            return intersectingColliders;
+        }
+
         #region Overrides
         public override string ToString()
         {

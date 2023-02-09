@@ -17,11 +17,13 @@
     public abstract class Collider
     {
         public bool IsActive { get; set; } = true;
+        public bool IsTrigger { get; set; } = false;
+        public string Layer { get; set; } = "Default";
 
         private bool IntersectsCircles(CircleCollider a, CircleCollider b)
         {
-            float distance = a.Centre.Distance(b.Centre);
-            return distance < (a.Radius + b.Radius);
+            float centreDistance = a.Centre.Distance(b.Centre);
+            return centreDistance < (a.Radius + b.Radius);
         }
 
         private bool IntersectsBoxes(BoxCollider a, BoxCollider b)
